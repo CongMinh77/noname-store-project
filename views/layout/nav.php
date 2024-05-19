@@ -14,9 +14,9 @@
             }
             echo '<div class="dropdown ml-3 mr-3 pt-1">
 					<button class="btn rounded-circle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #ff4f04">
-							<strong class="text-white">' . $sessionUser[0] . '</strong>
+							<strong class="text-white">' . strtoupper($sessionUser[0]) . '</strong>
 					</button>
-					<div class="dropdown-menu m-0">
+					<div class="dropdown-menu dropdown-menu-right m-0">
 						<a class="dropdown-item" href="login&action=logout">Đăng xuất</a>
 					</div>
 				</div>';
@@ -39,7 +39,7 @@
             $title = ['danh mục', 'sản phẩm', 'tài khoản', 'chức vụ', 'kho hàng', 'đơn hàng'];
 
             if (isset($_REQUEST['controller'])) {
-                $controllerName = $_REQUEST['controller'];
+                $controllerName = removeSpecialCharacter($_REQUEST['controller']);
 
                 $key = array_search($controllerName, $data);
                 $replace = array($key => '');

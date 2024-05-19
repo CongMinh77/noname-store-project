@@ -52,7 +52,7 @@
 					}
 					echo '<div class="dropdown ml-3">
 						<button class="btn rounded-circle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #ff4f04">
-								<strong class="text-white">'.$sessionUser[0].'</strong>
+								<strong class="text-white">'.strtoupper($sessionUser[0]).'</strong>
 						</button>
 						<div class="dropdown-menu m-0">
 							<a class="dropdown-item" href="home&action=profile">Tài khoản của tôi</a>

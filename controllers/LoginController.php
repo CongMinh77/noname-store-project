@@ -74,8 +74,9 @@ class LoginController extends BaseController
         die();
     }
 
-    public function forgotPass()
+    public function forgotPassword()
     {
+        echo __METHOD__;
     }
 
     public function show()

@@ -7,16 +7,17 @@ session_start();
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
 // Turn off all warning, error
 //error_reporting(0);
-
+require_once("./helper/utils.php");
 require_once("./core/Database.php");
 require_once("./models/BaseModel.php");
 require_once("./controllers/BaseController.php");
 
+
 $controllerName = ucfirst(
-    strtolower((preg_replace('/[^A-Za-z0-9\-]/', '', $_REQUEST['controller'])) ?? 'Home') . 'Controller'
+    strtolower($_REQUEST['controller'] ? removeSpecialCharacter($_REQUEST['controller']) : 'Home') . 'Controller'
 );
 $actionName = $_REQUEST['action'] ?? 'index';
-//dd($controllerName);
+//dd($controllerName, removeSpecialCharacter($_REQUEST['controller']), $_REQUEST['controller']);
 
 require "./controllers/$controllerName.php";
 

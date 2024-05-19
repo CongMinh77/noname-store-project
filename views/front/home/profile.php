@@ -66,7 +66,7 @@
 				<label for="birthday" class="d-flex align-items-center pr-1 m-0" style="width:10rem;">
 					<i class="fas fa-calendar-week pr-1"></i>Ngày sinh:
 				</label>
-				<input required="birthday" type="date" class="form-control border-0" placeholder="Enter your name" readonly value="<?=$account['dob']?>" name="dob">
+				<input required="birthday" type="date" readonly class="form-control border-0" placeholder="Enter your dob" value="<?=$account['dob']?>" name="dob">
 			</div>
 			<div class="form-group d-flex">
 				<label for="email" class="d-flex align-items-center pr-1 m-0" style="width:10rem;">
@@ -97,10 +97,10 @@
 				<label for="email" class="d-flex align-items-center pr-1 m-0" style="width:10rem;">
 					<i class="fas fa-phone pr-1"></i>Điện thoại:
 				</label>
-				<?php 
-					$phone = $account['soDienThoai'];
+				<?php
+					$phone = $account['soDienThoai'] ?? '';
 					$dem = strlen($phone);
-					$hide = str_repeat("*", $dem-2).$phone[$dem-2].$phone[$dem-1];
+					$hide = $account['soDienThoai'] ? str_repeat("*", $dem-2).$phone[$dem-2].$phone[$dem-1] : '';
 					echo '<input type="text" class="form-control border-0" readonly value="'.$hide.'" placeholder="Enter your phone" name="phone">';
 				?>
 			</div>

@@ -3,8 +3,11 @@
 class AccountController extends BaseController
 {
     const LIMIT = 6;
-    private $table;
     private $accountModel;
+    /**
+     * @var RoleModel
+     */
+    private $roleModel;
 
     public function __construct()
     {
@@ -36,14 +39,8 @@ class AccountController extends BaseController
             'id_role',
             'id_account');
 
-        $count = count($account);
-        $number = ceil($count / self::LIMIT);
-
         $page = $this->getGet('page');
-        if ($page > $number || $page < 0 || empty($_GET['page'])) {
-            $page = 1;
-        }
-        $firstIndex = ($page - 1) * self::LIMIT;
+        $infoPagination = getPagination($account, self::LIMIT, $page);
 
         $accountPaging = $this->accountModel->selectTripleJoinPaging(['id_account', 'id_role'],
             $columnRole,
@@ -51,20 +48,21 @@ class AccountController extends BaseController
             'id_role',
             'id_account',
             self::LIMIT,
-            $page);
+            $infoPagination['page']
+        );
         if (isset($_COOKIE['login']) && $_COOKIE['login'] == 'true' && isset($_SESSION['role'])) {
             $this->includeView('layout.admin_header');
             $this->includeView('layout.nav');
             $this->loadView('front.accounts.index', [
                 'accountPaging' => $accountPaging,
-                'firstIndex' => $firstIndex
+                'firstIndex' => $infoPagination['firstIndex']
             ]);
             $this->includeView('layout.pagination', [
-                'page' => $page,
-                'number' => $number
+                'page' => $infoPagination['page'],
+                'number' => $infoPagination['number']
             ]);
             $this->includeView('layout.scriptDelete_account', [
-                'controllerName' => $this->table = 'account'
+                'controllerName' => 'account'
             ]);
             $this->includeView('layout.searchFilter');
         } else {
@@ -80,10 +78,10 @@ class AccountController extends BaseController
             if (isset($_POST['id']) && isset($_POST['role'])) {
                 $id = $_POST['id'];
                 $role = $_POST['role'];
-                $delete = $this->accountModel->deleteAccountRoleById('id_role', $role, 'id_account', $id);
+                $this->accountModel->deleteAccountRoleById('id_role', $role, 'id_account', $id);
             } elseif (isset($_POST['role']) == '') {
                 $id = $_POST['id'];
-                $deleteByID = $this->accountModel->deleteAccountById($id);
+                $this->accountModel->deleteAccountById($id);
             }
         } else {
             header("Location: login");

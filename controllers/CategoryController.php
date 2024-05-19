@@ -25,26 +25,19 @@ class CategoryController extends BaseController
 
         if (isset($_COOKIE['login']) && $_COOKIE['login'] == 'true' && isset($_SESSION['role'])) {
             $category = $this->categoryModel->selectAllCategory($selectColumn, $order);
-
-            $count = count($category);
-            $number = ceil($count / self::LIMIT);
-
             $page = $this->getGet('page');
-            if ($page > $number || $page < 0 || empty($_GET['page'])) {
-                $page = 1;
-            }
-            $firstIndex = ($page - 1) * self::LIMIT;
+            $infoPagination = getPagination($category, self::LIMIT, $page);
 
-            $paging = $this->categoryModel->paging(self::LIMIT, $page);
+            $paging = $this->categoryModel->paging(self::LIMIT, $infoPagination['page']);
             $this->includeView('layout.admin_header');
             $this->includeView('layout.nav');
             $this->loadView('front.categories.index', [
                 'paging' => $paging,
-                'firstIndex' => $firstIndex
+                'firstIndex' => $infoPagination['firstIndex']
             ]);
             $this->includeView('layout.pagination', [
-                'page' => $page,
-                'number' => $number
+                'page' => $infoPagination['page'],
+                'number' => $infoPagination['number']
             ]);
 
             $this->includeView('layout.scriptDelete', [

@@ -12,7 +12,6 @@ class RegisterController extends BaseController
 
     public function index()
     {
-        //
         //$register = $this->registerModel->selectAllRegister();
         return $this->loadView('front.register.signup');
     }
@@ -21,15 +20,6 @@ class RegisterController extends BaseController
     {
         $data = [];
         if (!empty($_POST)) {
-            $fullname = $this->getPost('fullname');
-            $data[] = $fullname;
-
-            $dob = $this->getPost('dob');
-            $data[] = $dob;
-
-            $email = $this->getPost('email');
-            $data[] = $email;
-
             $username = $this->getPost('username');
             $data[] = $username;
 
@@ -41,28 +31,17 @@ class RegisterController extends BaseController
             $confirmPassword = $confirmPassword;
             $confirmPassword = md5($confirmPassword);
 
-            $phone = $this->getPost('phone');
-            $data[] = $phone;
-
-            $address = $this->getPost('address');
-            $data[] = $address;
-
             $create_time = $update_time = date('Y-m-d H:i:s');
             $data[] = $create_time;
             $data[] = $update_time;
             $columnAccount = [
-                'hoTen',
-                'dob',
-                'email',
                 'userName',
                 'passWord',
-                'soDienThoai',
-                'diaChi',
                 'created_time',
                 'update_time'
             ];
-            if (!empty($fullname) && !empty($username) && !empty($email) && !empty($password) && ($password == $confirmPassword)) {
-                $account = $this->accountModel->insertAccount($columnAccount, $data);
+            if (!empty($username) && !empty($password) && ($password == $confirmPassword)) {
+                $this->accountModel->insertAccount($columnAccount, $data);
 
                 header("Location: login");
             } else {
