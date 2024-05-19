@@ -4,7 +4,7 @@
  */
 class Database
 {
-	const HOST = "localhost";
+	const HOST = "127.0.0.1";
 	const USER = "root";
 	const PASSWORD = "";
 	const DATABASE = "no_name";
@@ -14,7 +14,7 @@ class Database
 
 		mysqli_set_charset($connect, "utf8");
 
-		//kiểm tra xem connect được không
+		// Kiểm tra xem connect thành công hay không
 		if(mysqli_connect_errno() === 0){
 			return $connect;
 		}

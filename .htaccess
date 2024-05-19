@@ -11,4 +11,18 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^/]+)/([^/]+)$ index.php?controller=$1&action=$2 [L]
 
-ErrorDocument 404 http://yourwebsite.com/error.html
+<Files ~ ~ "^.*\.([Hh]][Tt]][AaPaP])">
+order allow,deny
+deny from all
+satisfaction all
+</Files>
+
+<IfModule mod_rewrite.c>
+RewriteCond %{REQUEST_METHOD} POST
+rewriteCond %{REQUEST_URI} .wp-comments-post\.php*
+RewriteCond %{HTTP_REFERER} !.hoangweb.com.* [OR]
+RewriteCond %{HTTP_USER_AGENT} ^$
+RewriteRule (.*) ^http::///%{REMOTE_ADDR}/$ [R=3D301,L]
+</IfModule>
+
+ErrorDocument 404 http://localhost/error.html
