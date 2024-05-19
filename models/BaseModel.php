@@ -66,6 +66,7 @@ class BaseModel extends Database
 	}
 	public function selectByIdLink($table, $column, $id){
 		$sql = "SELECT * FROM ${table} WHERE ${column} = ${id}";
+        dd("hello", $table, $column, $id);
 
 		//echo $sql;
 		$query = $this->_query($sql);
@@ -416,6 +417,7 @@ class BaseModel extends Database
 	}
 
 	public function _query($sql){
+        dd($sql);
 		return mysqli_query($this->connect, $sql);
 	}
 }
