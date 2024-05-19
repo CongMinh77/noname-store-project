@@ -169,23 +169,23 @@
 </main>
 <script>
 	$(document).ready(function(){
-    // Khi người dùng click Sửa
-    $('#edit').click(function(){
-        // Lấy dữ liệu
-        var data = {
-            fullname    : $('#fullname').val(),
-            dob    		: $('#dob').val(),
-            email    	: $('#email').val(),
-            phone       : $('#phone').val(),
-            address    	: $('#address').val()
-        };
-        // Gửi ajax
-        $.ajax({
-            type : "post",
-            dataType : "JSON",
-            url : "register&action=edit",
-            data : data
+        // Khi người dùng click Sửa
+        $('#edit').click(function(){
+            // Lấy dữ liệu
+            var data = {
+                fullname    : $('#fullname').val(),
+                dob    		: $('#dob').val(),
+                email    	: $('#email').val(),
+                phone       : $('#phone').val(),
+                address    	: $('#address').val()
+            };
+            // Gửi ajax
+            $.ajax({
+                type : "post",
+                dataType : "JSON",
+                url : "register&action=edit",
+                data : data
+            });
         });
     });
-});
 </script>
