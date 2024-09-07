@@ -16,8 +16,8 @@ require_once("./controllers/BaseController.php");
 $controllerName = ucfirst(
     strtolower($_REQUEST['controller'] ? removeSpecialCharacter($_REQUEST['controller']) : 'Home') . 'Controller'
 );
+
 $actionName = $_REQUEST['action'] ?? 'index';
-//dd($controllerName, removeSpecialCharacter($_REQUEST['controller']), $_REQUEST['controller']);
 
 require "./controllers/$controllerName.php";
 
